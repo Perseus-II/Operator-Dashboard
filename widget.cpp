@@ -32,8 +32,8 @@ void Widget::on_rescanButton_clicked()
 
 void Widget::updateVideo1Pixmap(QGraphicsScene *scene)
 {
-
     ui->video1GV->setScene(scene);
+    qDebug() << "Updating scene";
     update();
 }
 

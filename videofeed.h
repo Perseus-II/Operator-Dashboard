@@ -4,6 +4,11 @@
 #include <QThread>
 #include <QDebug>
 #include <QGraphicsView>
+#include <QPixmap>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsItem>
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv/cv.h"
 
 class VideoFeed : public QThread
 {
@@ -17,6 +22,7 @@ signals:
 
 private:
     void run();
+    int stop_loop = false;
 };
 
 #endif // VIDEOFEED_H
