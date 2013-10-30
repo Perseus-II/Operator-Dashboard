@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Widget</string>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>1201</width>
+     <height>791</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Tab 1</string>
+    </attribute>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>291</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Joystick Selection</string>
+     </property>
+     <widget class="QPushButton" name="connectButton">
+      <property name="geometry">
+       <rect>
+        <x>6</x>
+        <y>60</y>
+        <width>280</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Connect</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="joystickComboBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>191</width>
+        <height>26</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="rescanButton">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>30</y>
+        <width>86</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Rescan</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>10</y>
+       <width>291</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Video Feed Selection</string>
+     </property>
+     <widget class="QPushButton" name="startVideo1FeedButton">
+      <property name="geometry">
+       <rect>
+        <x>6</x>
+        <y>60</y>
+        <width>280</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Start Stream</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="joystickComboBox_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>271</width>
+        <height>26</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGraphicsView" name="video1GV">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>160</y>
+       <width>611</width>
+       <height>491</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Tab 2</string>
+    </attribute>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
