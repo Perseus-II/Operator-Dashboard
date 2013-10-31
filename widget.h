@@ -27,12 +27,12 @@ private slots:
     void updateVideo1Pixmap(QGraphicsScene *scene);
     void on_startVideo1FeedButton_clicked();
     void updateConnectionStatus(int status);
-
     void on_connectToVehicleButton_clicked();
 
 private:
     Ui::Widget *ui;
     VideoFeed video1thread;
+    Joystick joystick;
     VehicleConnection vehicleConnection;
     int video1IsRunning;
 };

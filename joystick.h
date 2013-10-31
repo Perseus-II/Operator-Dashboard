@@ -2,23 +2,27 @@
 #define JOYSTICK_H
 
 #include <QDebug>
+#include <QThread>
 #include "SDL.h"
 
-class Joystick : public QObject
+class Joystick : public QThread
 {
     Q_OBJECT
 
 public:
-    explicit Joystick();
-    ~Joystick();
+    bool attachJoystick(int);
+
 
 
 signals:
-        void availableJoysticks(QString**);
+    void availableJoysticks(QString**);
 
 public slots:
 
 private:
+    void run();
+    SDL_Joystick *stick = NULL;
+    SDL_Event event;
 
 };
 

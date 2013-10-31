@@ -5,7 +5,7 @@ Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
-
+    joystick.start(); /* start joystick thread */
     connect(&video1thread, SIGNAL(renderedImage(QGraphicsScene*)),
                  this, SLOT(updateVideo1Pixmap(QGraphicsScene*)));
     video1IsRunning = false;
@@ -31,6 +31,7 @@ Widget::~Widget()
 void Widget::on_connectButton_clicked()
 {
     qDebug() << "Connect button clicked";
+    joystick.attachJoystick(0);
 
 }
 
