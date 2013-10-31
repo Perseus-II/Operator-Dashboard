@@ -6,6 +6,8 @@
 #include <QPixmap>
 #include <QDebug>
 #include <QGraphicsScene>
+#include "joystick.h"
+#include "vehicleconnection.h"
 
 namespace Ui {
 class Widget;
@@ -24,10 +26,14 @@ private slots:
     void on_rescanButton_clicked();
     void updateVideo1Pixmap(QGraphicsScene *scene);
     void on_startVideo1FeedButton_clicked();
+    void updateConnectionStatus(int status);
+
+    void on_connectToVehicleButton_clicked();
 
 private:
     Ui::Widget *ui;
     VideoFeed video1thread;
+    VehicleConnection vehicleConnection;
     int video1IsRunning;
 };
 

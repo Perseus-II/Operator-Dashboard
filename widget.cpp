@@ -10,9 +10,17 @@ Widget::Widget(QWidget *parent) :
                  this, SLOT(updateVideo1Pixmap(QGraphicsScene*)));
     video1IsRunning = false;
 
+    connect(&vehicleConnection, SIGNAL(connectionStatusChanged(int)),
+            this, SLOT(updateConnectionStatus(int)));
+
     ui->setupUi(this);
     ui->joystickComboBox->addItem("/dev/video0");
     ui->joystickComboBox->addItem("/dev/video1");
+
+    ui->videoSourceSelection->addItem("Acrylic Port");
+    ui->videoSourceSelection->addItem("Acrylic Starboard");
+
+    ui->connectionStatusLabel->setText("Not connected");
 }
 
 Widget::~Widget()
@@ -23,6 +31,7 @@ Widget::~Widget()
 void Widget::on_connectButton_clicked()
 {
     qDebug() << "Connect button clicked";
+
 }
 
 void Widget::on_rescanButton_clicked()
@@ -33,7 +42,6 @@ void Widget::on_rescanButton_clicked()
 void Widget::updateVideo1Pixmap(QGraphicsScene *scene)
 {
     ui->video1GV->setScene(scene);
-    qDebug() << "Updating scene";
     update();
 }
 
@@ -49,3 +57,25 @@ void Widget::on_startVideo1FeedButton_clicked()
     video1IsRunning = !video1IsRunning;
 }
 
+void Widget::updateConnectionStatus(int status) {
+    if(status) {
+        ui->connectionStatusLabel->setText("Connected");
+        ui->connectToVehicleButton->setText("Disconnect from Vehicle");
+    } else {
+        ui->connectionStatusLabel->setText("Not Connected");
+        ui->connectToVehicleButton->setText("Connect to Vehicle");
+    }
+}
+
+
+void Widget::on_connectToVehicleButton_clicked()
+{
+    if(vehicleConnection.connected) {
+        vehicleConnection.disconnectFromVehicle();
+    } else {
+        vehicleConnection.connectToVehicle(
+                    ui->ipAddressInput->text(),
+                    ui->missionControlInput->text(),
+                    ui->diagnosticsInput->text());
+    }
+}
