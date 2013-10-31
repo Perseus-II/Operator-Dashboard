@@ -7,8 +7,11 @@
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
-#include "opencv2/highgui/highgui.hpp"
+//#include "opencv2/highgui/highgui.hpp"
 #include "opencv/cv.h"
+#include "opencv/highgui.h"
+#include "opencv/cxcore.h"
+#include "czmq.h"
 
 class VideoFeed : public QThread
 {
