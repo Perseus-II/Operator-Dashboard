@@ -4,25 +4,33 @@
 #include <QDebug>
 #include <QThread>
 #include "SDL.h"
+#include "vehicleconnection.h"
 
-class Joystick : public QThread
+class Joystick : public QObject
 {
     Q_OBJECT
 
 public:
-    bool attachJoystick(int);
+    Joystick(VehicleConnection*);
+    ~Joystick();
+    bool attached;
+    void sleep(int ms) { QThread::sleep(ms); }
 
 
 
 signals:
-    void availableJoysticks(QString**);
+    void joystickStateChanged(bool);
 
 public slots:
+    void attachJoystick();
+    void reattachJoystick();
+    void detachJoystick();
+
+
 
 private:
-    void run();
-    SDL_Joystick *stick = NULL;
-    SDL_Event event;
+    SDL_Joystick *stick;
+    VehicleConnection *vehicleConnection;
 
 };
 

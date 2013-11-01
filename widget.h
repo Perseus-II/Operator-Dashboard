@@ -8,6 +8,7 @@
 #include <QGraphicsScene>
 #include "joystick.h"
 #include "vehicleconnection.h"
+#include <QMetaObject>
 
 namespace Ui {
 class Widget;
@@ -22,19 +23,20 @@ public:
     ~Widget();
 
 private slots:
-    void on_connectButton_clicked();
+    //void on_joystickConnectButton_clicked();
     void on_rescanButton_clicked();
     void updateVideo1Pixmap(QGraphicsScene *scene);
     void on_startVideo1FeedButton_clicked();
     void updateConnectionStatus(int status);
     void on_connectToVehicleButton_clicked();
+    void updateJoystickStatus(bool status);
 
 private:
     Ui::Widget *ui;
     VideoFeed video1thread;
-    Joystick joystick;
     VehicleConnection vehicleConnection;
     int video1IsRunning;
+
 };
 
 #endif // WIDGET_H

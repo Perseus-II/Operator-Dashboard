@@ -32,7 +32,7 @@
     <widget class="QGroupBox" name="joystickSelectionGroup">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>303</x>
        <y>10</y>
        <width>291</width>
        <height>101</height>
@@ -41,17 +41,17 @@
      <property name="title">
       <string>Joystick Selection</string>
      </property>
-     <widget class="QPushButton" name="connectButton">
+     <widget class="QPushButton" name="joystickConnectButton">
       <property name="geometry">
        <rect>
         <x>6</x>
         <y>60</y>
-        <width>280</width>
+        <width>141</width>
         <height>32</height>
        </rect>
       </property>
       <property name="text">
-       <string>Connect</string>
+       <string>Connect Joystick</string>
       </property>
      </widget>
      <widget class="QComboBox" name="joystickComboBox">
@@ -75,6 +75,19 @@
       </property>
       <property name="text">
        <string>Rescan</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="joystickDisconnectButton">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>60</y>
+        <width>141</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Disconnect</string>
       </property>
      </widget>
     </widget>
@@ -121,7 +134,7 @@
      <property name="geometry">
       <rect>
        <x>80</x>
-       <y>150</y>
+       <y>190</y>
        <width>1024</width>
        <height>768</height>
       </rect>
@@ -133,113 +146,13 @@
       </sizepolicy>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="communicationTab">
-    <attribute name="title">
-     <string>Communication</string>
-    </attribute>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>261</width>
-       <height>191</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string>TCP Configuration</string>
-     </property>
-     <widget class="QWidget" name="verticalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>9</x>
-        <y>29</y>
-        <width>246</width>
-        <height>151</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QLabel" name="label_4">
-           <property name="text">
-            <string>IP Address:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="ipAddressInput">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <item>
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Mission Control:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="missionControlInput">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Diagnostics:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="diagnosticsInput">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="connectToVehicleButton">
-         <property name="text">
-          <string>Connect to Vehicle</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
       <rect>
-       <x>300</x>
-       <y>20</y>
+       <x>620</x>
+       <y>11</y>
        <width>221</width>
-       <height>191</height>
+       <height>100</height>
       </rect>
      </property>
      <property name="title">
@@ -251,7 +164,7 @@
         <x>9</x>
         <y>29</y>
         <width>201</width>
-        <height>151</height>
+        <height>54</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -282,45 +195,146 @@
          </item>
         </layout>
        </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Joystick:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="joystickStatusLabel">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>&lt;joysitck-status&gt;</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::AutoText</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>261</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>TCP Configuration</string>
+     </property>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>9</x>
+        <y>29</y>
+        <width>246</width>
+        <height>132</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>IP Address:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="ipAddressInput">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>192.168.10.90</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Mission Control:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="missionControlInput">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>7000</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Diagnostics:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="diagnosticsInput">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>8000</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="connectToVehicleButton">
+         <property name="text">
+          <string>Connect to Vehicle</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </widget>
    </widget>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget_5">
-   <property name="geometry">
-    <rect>
-     <x>1050</x>
-     <y>790</y>
-     <width>160</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_8">
-    <item>
-     <widget class="QLabel" name="label_9">
-      <property name="text">
-       <string>Status:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="label_10">
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>&lt;status&gt;</string>
-      </property>
-      <property name="textFormat">
-       <enum>Qt::AutoText</enum>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <widget class="QWidget" name="configurationTab">
+    <attribute name="title">
+     <string>Configuration</string>
+    </attribute>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

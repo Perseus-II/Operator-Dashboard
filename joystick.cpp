@@ -1,6 +1,10 @@
 #include "joystick.h"
 
-void Joystick::run() {
+Joystick::Joystick(VehicleConnection *connection) {
+    stick = NULL;
+    attached = false;
+    vehicleConnection = connection;
+
     /* Initialize SDL */
     if(SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         qDebug() << "Failed to initialize joystick";
@@ -16,14 +20,37 @@ void Joystick::run() {
     }
 }
 
-bool Joystick::attachJoystick(int s) {
+Joystick::~Joystick() {
+
+}
+
+void Joystick::detachJoystick() {
+    SDL_JoystickClose(stick);
+    stick = NULL;
+    attached = false;
+    qDebug() << "Detached Joystick";
+    emit joystickStateChanged(false);
+}
+
+void Joystick::reattachJoystick() {
+    detachJoystick();
+
+    attachJoystick();
+}
+
+
+void Joystick::attachJoystick() {
     /* Attach the joystick */
-    stick = SDL_JoystickOpen(s);
-    qDebug() << "Attached joystick " << s;
+    stick = SDL_JoystickOpen(0);
+    SDL_Event event;
+    qDebug() << "Attached joystick ";
     if(stick == NULL) {
         puts("Error attaching joystick!");
-        return false;
+        return;
     }
+
+    attached = true;
+    emit joystickStateChanged(true);
 
     int x1_move;
     int y1_move;
@@ -36,9 +63,9 @@ bool Joystick::attachJoystick(int s) {
     int heave_a;
     int heave_b;
 
-    signal (SIGPIPE, SIG_IGN);
+    //signal (SIGPIPE, SIG_IGN);
 
-    while(1) {
+    while(attached) {
         while(SDL_PollEvent(&event)) {
             x1_move = SDL_JoystickGetAxis(stick, 0);
             y1_move = SDL_JoystickGetAxis(stick, 1);
@@ -53,19 +80,19 @@ bool Joystick::attachJoystick(int s) {
             heave_a = heave_up + heave_down;
             heave_b = heave_up + heave_down;
 
+            QString thrust_string;
+            thrust_string.sprintf("/set_thrust %d,%d,%d,%d", surge_port, surge_starboard, heave_a, heave_b);
+
+
+            vehicleConnection->writeToVehicle(thrust_string, *(vehicleConnection->missionControlFD));
+
             qDebug() << surge_port << " | " << surge_starboard << " | " << heave_a << " | " << heave_b;
 
-            usleep(80000);
-
-            switch(event.type) {
-            case SDL_KEYDOWN:
-                break;
-
-            case SDL_QUIT:
-                break;
-            }
+            usleep(100000);
         }
+        usleep(50000);
     }
+    return;
 }
 
 

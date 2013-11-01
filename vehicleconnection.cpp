@@ -112,6 +112,9 @@ void VehicleConnection::disconnectFromVehicle() {
 }
 
 int VehicleConnection::writeToVehicle(QString message, int fd) {
+    if(write(fd, message.toUtf8().data(), message.size()+1) < 0) {
+        qDebug() << "Write error!";
+    }
     qDebug() << "Writing " << message << " to " << fd;
     return 1;
 }
