@@ -22,12 +22,15 @@ public:
     VehicleConnection();
     ~VehicleConnection();  
     int doConnect(QString, int, int*);
-    void connectToVehicle(QString, QString, QString);
-    void disconnectFromVehicle();
-    int writeToVehicle(QString, int);
+    int writeToVehicle(QString);
+    char *writeAndRead(QString);
     bool connected;
-    int *missionControlFD;
-    int *diagnosticsFD;
+    int *fd;
+
+public slots:
+    void disconnectFromVehicle();
+    void connectToVehicle(QString, QString);
+
 
 private:
 

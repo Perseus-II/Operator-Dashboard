@@ -29,6 +29,11 @@ void Joystick::detachJoystick() {
     stick = NULL;
     attached = false;
     qDebug() << "Detached Joystick";
+
+    QString thrust_string;
+    thrust_string.sprintf("/set_thrust %d,%d,%d,%d", 0.0, 0.0, 0.0, 0.0);
+    vehicleConnection->writeToVehicle(thrust_string); /* set thrust to 0 when joystick disconnects */
+
     emit joystickStateChanged(false);
 }
 
@@ -62,6 +67,7 @@ void Joystick::attachJoystick() {
     int surge_port;
     int heave_a;
     int heave_b;
+    int avg_surge;
 
     //signal (SIGPIPE, SIG_IGN);
 
@@ -74,18 +80,25 @@ void Joystick::attachJoystick() {
             heave_up = SDL_JoystickGetButton(stick, 4) * 60;
             heave_down = SDL_JoystickGetButton(stick, 5) * 60 * -1;
 
-
             surge_starboard = -1 * (y2_move * (75.0/32768.0));
             surge_port = -1 * (y1_move * (75.0/32768.0));
-            heave_a = heave_up + heave_down;
+            avg_surge = (surge_starboard+surge_port)/2;
+
+
             heave_b = heave_up + heave_down;
+
+            heave_a = avg_surge; /* we're using a 3rd surge instead of 2nd heave */
+            //heave_a = 0;
 
             QString thrust_string;
             thrust_string.sprintf("/set_thrust %d,%d,%d,%d", surge_port, surge_starboard, heave_a, heave_b);
 
 
-            vehicleConnection->writeToVehicle(thrust_string, *(vehicleConnection->missionControlFD));
-
+            vehicleConnection->writeToVehicle(thrust_string);
+            emit(thrustVectorChanged(surge_port,
+                                     surge_starboard,
+                                     avg_surge,
+                                     heave_a));
             qDebug() << surge_port << " | " << surge_starboard << " | " << heave_a << " | " << heave_b;
 
             usleep(100000);

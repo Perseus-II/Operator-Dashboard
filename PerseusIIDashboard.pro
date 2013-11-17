@@ -17,12 +17,20 @@ SOURCES += main.cpp\
         widget.cpp \
     videofeed.cpp \
     joystick.cpp \
-    vehicleconnection.cpp
+    vehicleconnection.cpp \
+    orientationgraphic.cpp \
+    diagnostics.cpp \
+    missioncontrol.cpp \
+    gpspoint.cpp
 
 HEADERS  += widget.h \
     videofeed.h \
     joystick.h \
-    vehicleconnection.h
+    vehicleconnection.h \
+    orientationgraphic.h \
+    diagnostics.h \
+    missioncontrol.h \
+    gpspoint.h
 
 FORMS    += widget.ui
 
@@ -36,3 +44,6 @@ INCLUDEPATH += /usr/local/Cellar/zeromq/3.2.4/include
 
 INCLUDEPATH += /usr/local/include/SDL
 LIBS += -L/usr/local/lib -lSDLmain -lSDL -Wl,-framework,Cocoa
+
+RESOURCES += \
+    images.qrc

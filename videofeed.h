@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
+
 //#include "opencv2/highgui/highgui.hpp"
 #include "opencv/cv.h"
 #include "opencv/highgui.h"
@@ -19,6 +20,9 @@ class VideoFeed : public QThread
 
 public:
     void stop();
+    void set_ip(QString);
+    void set_port(int);
+
 
 signals:
     void renderedImage(QGraphicsScene *scene);
@@ -26,6 +30,8 @@ signals:
 private:
     void run();
     int stop_loop = false;
+    QString ip = "192.168.10.90";
+    int port = 9997;
 };
 
 #endif // VIDEOFEED_H

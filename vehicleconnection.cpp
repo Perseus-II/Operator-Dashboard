@@ -1,22 +1,20 @@
 #include "vehicleconnection.h"
 
+#define BUFSIZE 512
 
 VehicleConnection::VehicleConnection() {
-    diagnosticsFD = (int*)malloc(sizeof(int));
-    missionControlFD = (int*)malloc(sizeof(int));
+    fd = (int*)malloc(sizeof(int));
     connected = false;
 }
 
 VehicleConnection::~VehicleConnection() {
-    free(diagnosticsFD);
-    free(missionControlFD);
+    free(fd);
 }
 
-void VehicleConnection::connectToVehicle(QString ipAddress, QString missionControlPort, QString diagnosticsPort) {
+void VehicleConnection::connectToVehicle(QString ipAddress, QString port) {
     bool res = true;
 
-    res &= doConnect(ipAddress, missionControlPort.toInt(), missionControlFD);
-    res &= doConnect(ipAddress, diagnosticsPort.toInt(), diagnosticsFD);
+    res &= doConnect(ipAddress, port.toInt(), fd);
 
     connected = res;
 
@@ -105,17 +103,38 @@ int VehicleConnection::doConnect(QString ipAddress, int port, int *fd) {
 
 void VehicleConnection::disconnectFromVehicle() {
     qDebug() << "Disconnecting from vehicle";
-    ::close(*missionControlFD);
-    ::close(*diagnosticsFD);
+    ::close(*fd);
     connected = false;
     emit connectionStatusChanged(false);
 }
 
-int VehicleConnection::writeToVehicle(QString message, int fd) {
-    if(write(fd, message.toUtf8().data(), message.size()+1) < 0) {
+int VehicleConnection::writeToVehicle(QString message) {
+    if(!this->connected) return 0;
+    if(write(*fd, message.toUtf8().data(), message.size()+1) < 0) {
         qDebug() << "Write error!";
     }
     qDebug() << "Writing " << message << " to " << fd;
     return 1;
 }
 
+char *VehicleConnection::writeAndRead(QString message) {
+    if(!this->connected) return NULL;
+    qDebug() << "Writing: " << message;
+
+    int n;
+    char *buf;
+    //qDebug() << "Writing " << message << " to " << fd;
+
+    buf = (char*)malloc(BUFSIZE*sizeof(char));
+
+    if(write(*fd, message.toUtf8().data(), message.size()+1) < 0) {
+        //qDebug() << "Write error!";
+        return NULL;
+    }
+
+    if((n=read(*fd, buf, BUFSIZE)) < 0) {
+        //qDebug() << "read error";
+        return NULL;
+    }
+    return buf;
+}

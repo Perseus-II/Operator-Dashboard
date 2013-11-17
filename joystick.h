@@ -20,6 +20,7 @@ public:
 
 signals:
     void joystickStateChanged(bool);
+    void thrustVectorChanged(float,float,float,float);
 
 public slots:
     void attachJoystick();

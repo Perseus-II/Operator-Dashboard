@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1500</width>
     <height>1000</height>
    </rect>
   </property>
@@ -18,8 +18,8 @@
     <rect>
      <x>0</x>
      <y>10</y>
-     <width>1200</width>
-     <height>990</height>
+     <width>1500</width>
+     <height>1000</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -96,55 +96,46 @@
       <rect>
        <x>870</x>
        <y>10</y>
-       <width>311</width>
+       <width>381</width>
        <height>101</height>
       </rect>
      </property>
      <property name="title">
       <string>Video Feed Selection</string>
      </property>
-     <widget class="QPushButton" name="startVideo1FeedButton">
+     <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>6</x>
-        <y>60</y>
-        <width>287</width>
-        <height>32</height>
+        <x>0</x>
+        <y>20</y>
+        <width>381</width>
+        <height>80</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Start Stream</string>
-      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QPushButton" name="startVideo1FeedButton">
+         <property name="text">
+          <string>Start Stream</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="startVideo2FeedButton">
+         <property name="text">
+          <string>Start Stream</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="startVideo3FeedButton">
+         <property name="text">
+          <string>Start Stream</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
-     <widget class="QComboBox" name="videoSourceSelection">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>281</width>
-        <height>26</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QGraphicsView" name="video1GV">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>190</y>
-       <width>1024</width>
-       <height>768</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
     </widget>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
@@ -152,7 +143,7 @@
        <x>620</x>
        <y>11</y>
        <width>221</width>
-       <height>100</height>
+       <height>121</height>
       </rect>
      </property>
      <property name="title">
@@ -164,7 +155,7 @@
         <x>9</x>
         <y>29</y>
         <width>201</width>
-        <height>54</height>
+        <height>85</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -173,12 +164,39 @@
          <item>
           <widget class="QLabel" name="label_8">
            <property name="text">
-            <string>Status:</string>
+            <string>Mission Control:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="connectionStatusLabel">
+          <widget class="QLabel" name="missionControlStatusLabel">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>&lt;status&gt;</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::AutoText</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Diagnostics:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="diagnosticsStatusLabel">
            <property name="font">
             <font>
              <weight>75</weight>
@@ -231,7 +249,7 @@
        <x>20</x>
        <y>10</y>
        <width>261</width>
-       <height>171</height>
+       <height>201</height>
       </rect>
      </property>
      <property name="title">
@@ -243,7 +261,7 @@
         <x>9</x>
         <y>29</y>
         <width>246</width>
-        <height>132</height>
+        <height>166</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -289,7 +307,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>7000</string>
+            <string>7080</string>
            </property>
           </widget>
          </item>
@@ -313,21 +331,358 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>8000</string>
+            <string>8080</string>
            </property>
           </widget>
          </item>
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="connectToVehicleButton">
+        <widget class="QPushButton" name="connectToMissionControlButton">
          <property name="text">
-          <string>Connect to Vehicle</string>
+          <string>Connect to Misson Control</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="connectToDiagnosticsButton">
+         <property name="text">
+          <string>Begin Diagnostics</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
+    </widget>
+    <widget class="QGraphicsView" name="video2GV">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>180</y>
+       <width>511</width>
+       <height>391</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+    <widget class="QGraphicsView" name="video3GV">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>130</y>
+       <width>531</width>
+       <height>331</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+    <widget class="QGraphicsView" name="video1GV">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>160</y>
+       <width>541</width>
+       <height>351</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+    <widget class="QGraphicsView" name="vehicleOrientationGV">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>650</y>
+       <width>321</width>
+       <height>271</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>510</y>
+       <width>261</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Vehicle Mode</string>
+     </property>
+     <widget class="QComboBox" name="modeSelection">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>241</width>
+        <height>26</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Disabled</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Manual (Joystick)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Autonomous</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>290</y>
+       <width>261</width>
+       <height>211</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>PID Values</string>
+     </property>
+     <widget class="QWidget" name="verticalLayoutWidget_5">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>241</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_16">
+         <item>
+          <widget class="QLabel" name="label_15">
+           <property name="text">
+            <string>K_p</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="kp_Textfield">
+           <property name="text">
+            <string>.18</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="kp_curVal">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_17">
+         <item>
+          <widget class="QLabel" name="label_19">
+           <property name="text">
+            <string>K_i </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="ki_Textfield">
+           <property name="text">
+            <string>.01</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="ki_curVal">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_21">
+         <item>
+          <widget class="QLabel" name="label_20">
+           <property name="text">
+            <string>K_d</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="kd_Textfield">
+           <property name="text">
+            <string>.04</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="kd_curVal">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>4</x>
+        <y>130</y>
+        <width>251</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Update PID Values</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>90</y>
+        <width>92</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_5">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>210</y>
+       <width>261</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Orientation</string>
+     </property>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>241</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Update Current Orientation</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGraphicsView" name="vehicleThrustView">
+     <property name="geometry">
+      <rect>
+       <x>930</x>
+       <y>220</y>
+       <width>200</width>
+       <height>200</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Navigation</string>
+    </attribute>
+    <widget class="QGraphicsView" name="mapGraphicsView">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>1471</width>
+       <height>911</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="startStopTrackingButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>141</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Stop Tracking</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="resetMapButton">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>10</y>
+       <width>115</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Reset Map</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_5">
+     <property name="geometry">
+      <rect>
+       <x>680</x>
+       <y>10</y>
+       <width>115</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Mark POI</string>
+     </property>
+     <property name="autoDefault">
+      <bool>false</bool>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="configurationTab">
