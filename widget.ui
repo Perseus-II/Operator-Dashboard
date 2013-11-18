@@ -307,7 +307,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>7080</string>
+            <string>9001</string>
            </property>
           </widget>
          </item>
@@ -331,7 +331,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>8080</string>
+            <string>9000</string>
            </property>
           </widget>
          </item>
@@ -624,6 +624,19 @@
       </sizepolicy>
      </property>
     </widget>
+    <widget class="QPushButton" name="enableDisableVehicleButton">
+     <property name="geometry">
+      <rect>
+       <x>1290</x>
+       <y>20</y>
+       <width>201</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Remote Kil</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -632,10 +645,10 @@
     <widget class="QGraphicsView" name="mapGraphicsView">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>1471</width>
-       <height>911</height>
+       <x>220</x>
+       <y>70</y>
+       <width>1024</width>
+       <height>768</height>
       </rect>
      </property>
     </widget>

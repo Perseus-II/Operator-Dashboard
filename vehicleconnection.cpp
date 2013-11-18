@@ -119,7 +119,6 @@ int VehicleConnection::writeToVehicle(QString message) {
 
 char *VehicleConnection::writeAndRead(QString message) {
     if(!this->connected) return NULL;
-    qDebug() << "Writing: " << message;
 
     int n;
     char *buf;

@@ -95,10 +95,7 @@ void Joystick::attachJoystick() {
 
 
             vehicleConnection->writeToVehicle(thrust_string);
-            emit(thrustVectorChanged(surge_port,
-                                     surge_starboard,
-                                     avg_surge,
-                                     heave_a));
+
             qDebug() << surge_port << " | " << surge_starboard << " | " << heave_a << " | " << heave_b;
 
             usleep(100000);

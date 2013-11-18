@@ -10,6 +10,7 @@ class MissionControl : public QObject
 public:
     MissionControl(VehicleConnection*);
     ~MissionControl();
+    int mode;
 
 public slots:
     void setVehicleMode(int mode);

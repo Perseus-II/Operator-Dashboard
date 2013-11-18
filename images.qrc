@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
         <file>hoboken_map.png</file>
+        <file>doubletree.png</file>
     </qresource>
 </RCC>

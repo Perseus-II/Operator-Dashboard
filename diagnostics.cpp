@@ -14,7 +14,7 @@ void Diagnostics::process() {
     float s1,s2,s3,h1;
     char *pch;
     float pitch, roll, yaw;
-    float lat, lon, prev_lat, prev_lon;
+    double lat, lon, prev_lat, prev_lon;
     float kp, ki, kd;
     float depth_ft, depth_m, temperature;
     float gps_siv, gps_siu, gps_dop;
@@ -22,17 +22,16 @@ void Diagnostics::process() {
     while(1) {
         if(!this->connection->connected) continue;
         vehicle_info = this->connection->writeAndRead("/info");
-        qDebug() << "Finished writing /info";
-        usleep(250000);
+        usleep(100000);
         if(vehicle_info != NULL) {
             //qDebug() << vehicle_info;
             if(pch == NULL) return;
             pch = strtok(vehicle_info, ",");
-            lat = atof(pch);
+            sscanf(pch, "%lf", &lat);
             //qDebug() << "position lat = " << pch;
             if(pch == NULL) return;
             pch = strtok(NULL, ",");
-            lon = atof(pch);
+            sscanf(pch, "%lf", &lon);
             //qDebug() << "position lon = " << pch;
             if(pch == NULL) return;
             pch = strtok(NULL, ",");
@@ -113,15 +112,15 @@ void Diagnostics::process() {
 
             emit(infoUpdated(pitch, roll, yaw));
             emit(pidValuesUpdated(kp, ki, kd));
-            qDebug() << "Lat = " << lat << " | Lon = " << lon;
+            //qDebug() << "Lat = " << lat << " | Lon = " << lon;
 
             /* only add point to map if our position has changed */
-            if((lat != prev_lat || lon != prev_lon) && gps_dop == 1.0) {
-                qDebug() << "Updating map";
+            if(lat != prev_lat || lon != prev_lon) {
+                //qDebug() << "Updating map";
                 emit newMapPointAvailable(QPointF(lat, lon));
             }
 
-            qDebug() << "New thrust vector: " << s1 << " " << s2 << " " << s3 << " " << h1;
+            //qDebug() << "New thrust vector: " << s1 << " " << s2 << " " << s3 << " " << h1;
             emit(thrustVectorChanged(s1,s2,s3,h1));
 
             /* store previous lon lat pair */

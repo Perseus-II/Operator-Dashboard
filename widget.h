@@ -59,8 +59,10 @@ private slots:
     void updateMapView();
     void on_startStopTrackingButton_clicked();
     void on_resetMapButton_clicked();
-    void on_pushButton_5_clicked();
     void updateVehicleThrustScene(float,float,float,float);
+
+
+    void on_enableDisableVehicleButton_clicked();
 
 private:
     Ui::Widget *ui;
@@ -87,6 +89,7 @@ private:
     bool mapTracking;
 
     QGraphicsScene *vehicleThrustScene;
+    int vehicleEnabled;
 
 };
 

@@ -12,6 +12,9 @@ MissionControl::~MissionControl() {
 void MissionControl::setVehicleMode(int mode) {
     /* write to missioncontrolfd */
     QString message;
+    this->mode = mode;
+    this->connection->writeToVehicle("/set_thrust 0,0,0,0");
+
     qDebug() << "Changing vehicle mode to " << mode;
     message.sprintf("/set_mode %d", mode);
 
@@ -20,7 +23,6 @@ void MissionControl::setVehicleMode(int mode) {
     else
         qDebug() << "Failed to change vehicle mode!";
 
-    this->connection->writeToVehicle("/set_thrust 0,0,0,0");
 }
 
 void MissionControl::setPIDValues(float kp, float ki, float kd) {

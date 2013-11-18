@@ -1,10 +1,15 @@
 #include "widget.h"
 #include "ui_widget.h"
 
-#define MINLAT 40.7443957975362
-#define MAXLAT 40.7428351119306
-#define MINLON -74.0306854248047
-#define MAXLON -74.0282821655273
+//#define MINLAT 40.7443957975362
+//#define MAXLAT 40.7428351119306
+//#define MINLON -74.0306854248047
+//#define MAXLON -74.0282821655273
+
+#define MAXLON -81.7499542236328
+#define MINLON -81.7527008056641
+#define MAXLAT 24.5602388063527
+#define MINLAT 24.5621123556539
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +17,8 @@ Widget::Widget(QWidget *parent) :
 {
 
     ui->setupUi(this);
+
+    this->vehicleEnabled = false;
 
     orientationScene = new QGraphicsScene();
     ui->vehicleOrientationGV->setScene(orientationScene);
@@ -107,8 +114,9 @@ Widget::Widget(QWidget *parent) :
     ui->joystickStatusLabel->setText("Not Connected");
 
 
-    this->mapScene = new QGraphicsScene(0,0,1792,1536);
-    this->mapImage = QImage(":images/hoboken_map.png");
+    this->mapScene = new QGraphicsScene(0,0,1024,768);
+    this->mapImage = QImage(":images/doubletree.png");
+
 
     this->mapScene->addPixmap(QPixmap::fromImage(mapImage));
     ui->mapGraphicsView->setScene(this->mapScene);
@@ -119,6 +127,7 @@ Widget::Widget(QWidget *parent) :
 
     this->vehicleThrustScene = new QGraphicsScene(0,0,ui->vehicleThrustView->width(), ui->vehicleThrustView->height());
     ui->vehicleThrustView->setScene(this->vehicleThrustScene);
+
 }
 
 Widget::~Widget()
@@ -229,7 +238,7 @@ void Widget::on_connectToMissionControlButton_clicked()
         QMetaObject::invokeMethod(missionControlConnection, "connectToVehicle", Qt::QueuedConnection,
                                   Q_ARG(QString, ui->ipAddressInput->text()),
                                   Q_ARG(QString, ui->missionControlInput->text()));
-
+        missionControlWorker->setVehicleMode(0);
     }
 }
 
@@ -243,7 +252,6 @@ void Widget::on_connectToDiagnosticsButton_clicked()
         QMetaObject::invokeMethod(diagnosticsConnection, "connectToVehicle", Qt::QueuedConnection,
                                   Q_ARG(QString, ui->ipAddressInput->text()),
                                   Q_ARG(QString, ui->diagnosticsInput->text()));
-
     }
 }
 
@@ -287,9 +295,9 @@ void Widget::updateMapView() {
 void Widget::addPointToMapView(QPointF point) {
 
     // 1792 x 1536
-    float pixelY = ((point.rx() - MINLAT) / (MAXLAT - MINLAT)) * (1536 - 1);
-    float pixelX = ((point.ry() - MINLON) / (MAXLON - MINLON)) * (1792 - 1);
-
+    float pixelY = ((point.rx() - MINLAT) / (MAXLAT - MINLAT)) * (768 - 1);
+    float pixelX = ((point.ry() - MINLON) / (MAXLON - MINLON)) * (1024 - 1);
+    qDebug() << "Adding point : (" << pixelX << "," << pixelY << ")";
     if(this->mapTracking) {
         pointVector.prepend(GPSPoint(QPointF(pixelX, pixelY), QDateTime::currentDateTime()));
     }
@@ -325,10 +333,6 @@ void Widget::on_resetMapButton_clicked()
 
 }
 
-void Widget::on_pushButton_5_clicked()
-{
-
-}
 
 void Widget::updateVehicleThrustScene(float s1, float s2, float s3, float h1) {
     QPen pen_red(Qt::red);
@@ -356,4 +360,12 @@ void Widget::updateVehicleThrustScene(float s1, float s2, float s3, float h1) {
 
 
 
+}
+
+
+void Widget::on_enableDisableVehicleButton_clicked()
+{
+    /* reverse the vehicle mode state */
+    this->missionControlWorker->setVehicleMode(0);
+    ui->modeSelection->setCurrentIndex(0);
 }
