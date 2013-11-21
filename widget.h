@@ -20,10 +20,12 @@
 #include <QDateTime>
 #include <QMessageBox>
 #include "gpspoint.h"
+#include <QDialog>
 
 #define MODE_DISABLED 0
 #define MODE_MANUAL 1
 #define MODE_AUTON 2
+#define MODE_AUTON_DEPTH 3
 
 namespace Ui {
 class Widget;
@@ -60,9 +62,12 @@ private slots:
     void on_startStopTrackingButton_clicked();
     void on_resetMapButton_clicked();
     void updateVehicleThrustScene(float,float,float,float);
+    void updateDesiredDepth(float);
 
 
     void on_enableDisableVehicleButton_clicked();
+
+    void on_updateDesiredDepthButton_clicked();
 
 private:
     Ui::Widget *ui;
@@ -90,6 +95,14 @@ private:
 
     QGraphicsScene *vehicleThrustScene;
     int vehicleEnabled;
+
+    QDialog feed1Dialog;
+    QDialog feed2Dialog;
+    QDialog feed3Dialog;
+
+    QGraphicsView *video1GraphicsView;
+    QGraphicsView *video2GraphicsView;
+    QGraphicsView *video3GraphicsView;
 
 };
 

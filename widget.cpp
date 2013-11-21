@@ -6,10 +6,15 @@
 //#define MINLON -74.0306854248047
 //#define MAXLON -74.0282821655273
 
-#define MAXLON -81.7499542236328
-#define MINLON -81.7527008056641
-#define MAXLAT 24.5602388063527
-#define MINLAT 24.5621123556539
+//#define MAXLON -81.7499542236328
+//#define MINLON -81.7527008056641
+//#define MAXLAT 24.5602388063527
+//#define MINLAT 24.5621123556539
+
+#define MINLON -81.745613
+#define MAXLON -81.745021
+#define MINLAT 24.584381
+#define MAXLAT 24.583874
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -47,11 +52,12 @@ Widget::Widget(QWidget *parent) :
 
     connect(ui->modeSelection, SIGNAL(activated(int)), missionControlWorker, SLOT(setVehicleMode(int)));
 
+
     connect(diagnosticsThread, SIGNAL(started()), diagnosticsWorker, SLOT(process()));
     connect(diagnosticsWorker, SIGNAL(infoUpdated(float,float,float)), vehicleOrientation, SLOT(updateState(float,float,float)), Qt::AutoConnection);
     connect(diagnosticsWorker, SIGNAL(pidValuesUpdated(float,float,float)), this, SLOT(updatePidLabels(float,float,float)));
     connect(diagnosticsWorker, SIGNAL(newMapPointAvailable(QPointF)), this, SLOT(addPointToMapView(QPointF)));
-
+    connect(diagnosticsWorker, SIGNAL(desiredDepthChanged(float)), this, SLOT(updateDesiredDepth(float)));
     diagnosticsThread->start();
     missionControlThread->start();
 
@@ -114,8 +120,8 @@ Widget::Widget(QWidget *parent) :
     ui->joystickStatusLabel->setText("Not Connected");
 
 
-    this->mapScene = new QGraphicsScene(0,0,1024,768);
-    this->mapImage = QImage(":images/doubletree.png");
+    this->mapScene = new QGraphicsScene(0,0,1240,1158);
+    this->mapImage = QImage(":images/fkcc_lagoon3.png");
 
 
     this->mapScene->addPixmap(QPixmap::fromImage(mapImage));
@@ -127,6 +133,12 @@ Widget::Widget(QWidget *parent) :
 
     this->vehicleThrustScene = new QGraphicsScene(0,0,ui->vehicleThrustView->width(), ui->vehicleThrustView->height());
     ui->vehicleThrustView->setScene(this->vehicleThrustScene);
+
+    //QHBoxLayout *feed1Layout = new QHBoxLayout();
+    //video1GraphicsView = new QGraphicsView();
+    //feed1Layout->addWidget(video1GraphicsView);
+    //feed1Dialog.setLayout(feed1Layout);
+
 
 }
 
@@ -163,8 +175,10 @@ void Widget::on_startVideo1FeedButton_clicked()
 {
     if(video1IsRunning) {
         video1thread.stop();
+        //feed1Dialog.close();
         ui->startVideo1FeedButton->setText("Start Stream");
     } else {
+        //feed1Dialog.show();
         video1thread.start(QThread::HighestPriority	);
         ui->startVideo1FeedButton->setText("Stop Stream");
     }
@@ -295,12 +309,18 @@ void Widget::updateMapView() {
 void Widget::addPointToMapView(QPointF point) {
 
     // 1792 x 1536
-    float pixelY = ((point.rx() - MINLAT) / (MAXLAT - MINLAT)) * (768 - 1);
-    float pixelX = ((point.ry() - MINLON) / (MAXLON - MINLON)) * (1024 - 1);
+    float pixelY = ((point.rx() - MINLAT) / (MAXLAT - MINLAT)) * (1240 - 1);
+    float pixelX = ((point.ry() - MINLON) / (MAXLON - MINLON)) * (1158 - 1);
+    pixelX += 80;
+    pixelY += 65;
     qDebug() << "Adding point : (" << pixelX << "," << pixelY << ")";
     if(this->mapTracking) {
         pointVector.prepend(GPSPoint(QPointF(pixelX, pixelY), QDateTime::currentDateTime()));
     }
+    QString lonText;
+    QString latText;
+    ui->lattitudeBox->setText(latText.sprintf("%f", point.rx()));
+    ui->longitudeBox->setText(lonText.sprintf("%f", point.ry()));
     updateMapView();
 }
 
@@ -340,7 +360,7 @@ void Widget::updateVehicleThrustScene(float s1, float s2, float s3, float h1) {
     QPen pen_green(Qt::green);
     pen_green.setWidth(3);
 
-    qDebug() << "Size = (" << this->vehicleThrustScene->width() << "," << this->vehicleThrustScene->height() << ")";
+    //qDebug() << "Size = (" << this->vehicleThrustScene->width() << "," << this->vehicleThrustScene->height() << ")";
 
     this->vehicleThrustScene->clear();
 
@@ -368,4 +388,15 @@ void Widget::on_enableDisableVehicleButton_clicked()
     /* reverse the vehicle mode state */
     this->missionControlWorker->setVehicleMode(0);
     ui->modeSelection->setCurrentIndex(0);
+}
+
+
+void Widget::updateDesiredDepth(float depth) {
+    QString depthStr;
+    ui->currentDesiredDepth->setText(depthStr.sprintf("%f", depth));
+}
+
+void Widget::on_updateDesiredDepthButton_clicked()
+{
+    QMetaObject::invokeMethod(missionControlWorker, "updateDesiredDepth", Qt::QueuedConnection, Q_ARG(float, ui->desiredDepthInput->text().toFloat()));
 }

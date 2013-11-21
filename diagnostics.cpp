@@ -9,6 +9,7 @@ Diagnostics::~Diagnostics() {
     this->connection = NULL;
 }
 
+
 void Diagnostics::process() {
     char *vehicle_info;
     float s1,s2,s3,h1;
@@ -18,10 +19,11 @@ void Diagnostics::process() {
     float kp, ki, kd;
     float depth_ft, depth_m, temperature;
     float gps_siv, gps_siu, gps_dop;
+    float desired_depth;
 
     while(1) {
         if(!this->connection->connected) continue;
-        vehicle_info = this->connection->writeAndRead("/info");
+        vehicle_info = this->connection->writeAndRead("/info ");
         usleep(100000);
         if(vehicle_info != NULL) {
             //qDebug() << vehicle_info;
@@ -109,6 +111,10 @@ void Diagnostics::process() {
             pch = strtok(NULL, ",");
             gps_dop = atof(pch);
             //qDebug() << "gps dop = " << gps_dop;
+            if(pch == NULL) return;
+            pch = strtok(NULL, ",");
+            desired_depth = atof(pch);
+            qDebug() << "desired depth = " << desired_depth;
 
             emit(infoUpdated(pitch, roll, yaw));
             emit(pidValuesUpdated(kp, ki, kd));
@@ -122,6 +128,8 @@ void Diagnostics::process() {
 
             //qDebug() << "New thrust vector: " << s1 << " " << s2 << " " << s3 << " " << h1;
             emit(thrustVectorChanged(s1,s2,s3,h1));
+
+            emit(desiredDepthChanged(desired_depth));
 
             /* store previous lon lat pair */
             prev_lat = lat;

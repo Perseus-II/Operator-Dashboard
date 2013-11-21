@@ -70,28 +70,62 @@ void Joystick::attachJoystick() {
     int avg_surge;
 
     //signal (SIGPIPE, SIG_IGN);
+    int joystick_config = 0;
 
     while(attached) {
         while(SDL_PollEvent(&event)) {
-            x1_move = SDL_JoystickGetAxis(stick, 0);
-            y1_move = SDL_JoystickGetAxis(stick, 1);
-            x2_move = SDL_JoystickGetAxis(stick, 2);
-            y2_move = SDL_JoystickGetAxis(stick, 3);
-            heave_up = SDL_JoystickGetButton(stick, 4) * 60;
-            heave_down = SDL_JoystickGetButton(stick, 5) * 60 * -1;
-
-            surge_starboard = -1 * (y2_move * (75.0/32768.0));
-            surge_port = -1 * (y1_move * (75.0/32768.0));
-            avg_surge = (surge_starboard+surge_port)/2;
-
-
-            heave_b = heave_up + heave_down;
-
-            heave_a = avg_surge; /* we're using a 3rd surge instead of 2nd heave */
-            //heave_a = 0;
-
             QString thrust_string;
-            thrust_string.sprintf("/set_thrust %d,%d,%d,%d", surge_port, surge_starboard, heave_a, heave_b);
+            switch(joystick_config) {
+                case 0:
+                    x1_move = SDL_JoystickGetAxis(stick, 0);
+                    y1_move = SDL_JoystickGetAxis(stick, 1);
+                    x2_move = SDL_JoystickGetAxis(stick, 2);
+                    y2_move = SDL_JoystickGetAxis(stick, 3);
+                    heave_up = SDL_JoystickGetButton(stick, 4) * 60;
+                    heave_down = SDL_JoystickGetButton(stick, 5) * 60 * -1;
+
+                    surge_starboard = -1 * (y2_move * (75.0/32768.0));
+                    surge_port = -1 * (y1_move * (75.0/32768.0));
+                    avg_surge = (surge_starboard+surge_port)/2;
+
+
+                    heave_b = heave_up + heave_down;
+
+                    heave_a = avg_surge; /* we're using a 3rd surge instead of 2nd heave */
+                    //heave_a = 0;
+
+                    thrust_string.sprintf("/set_thrust %d,%d,%d,%d", surge_port, surge_starboard, heave_a, heave_b);
+                    break;
+                case 1:
+                    x1_move = SDL_JoystickGetAxis(stick, 0);
+                    y1_move = SDL_JoystickGetAxis(stick, 1);
+                    x2_move = SDL_JoystickGetAxis(stick, 2);
+                    y2_move = SDL_JoystickGetAxis(stick, 3);
+
+
+                    // y1_move is left stick, y-axis
+                    y1_move = -1 * (y1_move * (75.0/32768.0));
+
+                    // y2_move is the right stick, y-axis
+                    y2_move = -1 * (y2_move * (75.0/32768.0));
+                    x2_move = (x2_move * (75.0/32768.0));
+
+                    surge_port = y1_move + x2_move;
+                    surge_starboard = y1_move - x2_move;
+
+                    surge_starboard = -1 * (y2_move * (75.0/32768.0));
+                    surge_port = -1 * (y1_move * (75.0/32768.0));
+
+                    heave_b = y2_move;
+
+                    heave_a = (surge_starboard+surge_port) / 2; /* we're using a 3rd surge instead of 2nd heave */
+                    //heave_a = 0;
+
+                    thrust_string.sprintf("/set_thrust %d,%d,%d,%d", surge_port, surge_starboard, heave_a, heave_b);
+                    break;
+            }
+
+
 
 
             vehicleConnection->writeToVehicle(thrust_string);

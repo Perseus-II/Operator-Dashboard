@@ -2,5 +2,8 @@
     <qresource prefix="/images">
         <file>hoboken_map.png</file>
         <file>doubletree.png</file>
+        <file>fkcc_lagoon.png</file>
+        <file>fkcc_lagoon2.png</file>
+        <file>fkcc_lagoon3.png</file>
     </qresource>
 </RCC>

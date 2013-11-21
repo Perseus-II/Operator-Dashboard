@@ -24,6 +24,8 @@ signals:
     void pidValuesUpdated(float, float, float);
     void newMapPointAvailable(QPointF);
     void thrustVectorChanged(float,float,float,float);
+    void desiredDepthChanged(float);
+
 
 private:
     VehicleConnection *connection;

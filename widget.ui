@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1500</width>
+    <width>1611</width>
     <height>1000</height>
    </rect>
   </property>
@@ -18,12 +18,12 @@
     <rect>
      <x>0</x>
      <y>10</y>
-     <width>1500</width>
+     <width>1611</width>
      <height>1000</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="overviewTab">
     <attribute name="title">
@@ -307,7 +307,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>9001</string>
+            <string>9010</string>
            </property>
           </widget>
          </item>
@@ -331,7 +331,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>9000</string>
+            <string>9011</string>
            </property>
           </widget>
          </item>
@@ -361,9 +361,9 @@
      <property name="geometry">
       <rect>
        <x>290</x>
-       <y>180</y>
-       <width>511</width>
-       <height>391</height>
+       <y>130</y>
+       <width>541</width>
+       <height>421</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -379,10 +379,10 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>320</x>
+       <x>830</x>
        <y>130</y>
-       <width>531</width>
-       <height>331</height>
+       <width>571</width>
+       <height>421</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -398,10 +398,10 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>300</x>
-       <y>160</y>
-       <width>541</width>
-       <height>351</height>
+       <x>670</x>
+       <y>550</y>
+       <width>651</width>
+       <height>411</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -411,21 +411,11 @@
       </sizepolicy>
      </property>
     </widget>
-    <widget class="QGraphicsView" name="vehicleOrientationGV">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>650</y>
-       <width>321</width>
-       <height>271</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QGroupBox" name="groupBox_3">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>510</y>
+       <y>600</y>
        <width>261</width>
        <height>71</height>
       </rect>
@@ -455,6 +445,11 @@
       <item>
        <property name="text">
         <string>Autonomous</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Autonomous Depth</string>
        </property>
       </item>
      </widget>
@@ -493,7 +488,7 @@
          <item>
           <widget class="QLineEdit" name="kp_Textfield">
            <property name="text">
-            <string>.18</string>
+            <string>15</string>
            </property>
           </widget>
          </item>
@@ -518,7 +513,7 @@
          <item>
           <widget class="QLineEdit" name="ki_Textfield">
            <property name="text">
-            <string>.01</string>
+            <string>1</string>
            </property>
           </widget>
          </item>
@@ -543,7 +538,7 @@
          <item>
           <widget class="QLineEdit" name="kd_Textfield">
            <property name="text">
-            <string>.04</string>
+            <string>3</string>
            </property>
           </widget>
          </item>
@@ -611,8 +606,8 @@
     <widget class="QGraphicsView" name="vehicleThrustView">
      <property name="geometry">
       <rect>
-       <x>930</x>
-       <y>220</y>
+       <x>340</x>
+       <y>750</y>
        <width>200</width>
        <height>200</height>
       </rect>
@@ -637,6 +632,58 @@
       <string>Remote Kil</string>
      </property>
     </widget>
+    <widget class="QGroupBox" name="groupBox_6">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>510</y>
+       <width>261</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Depth Settings (ft off ground)</string>
+     </property>
+     <widget class="QLineEdit" name="desiredDepthInput">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>35</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>10</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="currentDesiredDepth">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>144</x>
+        <y>34</y>
+        <width>111</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="updateDesiredDepthButton">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>30</y>
+        <width>61</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>-&gt;</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -645,10 +692,10 @@
     <widget class="QGraphicsView" name="mapGraphicsView">
      <property name="geometry">
       <rect>
-       <x>220</x>
-       <y>70</y>
-       <width>1024</width>
-       <height>768</height>
+       <x>320</x>
+       <y>60</y>
+       <width>1240</width>
+       <height>1158</height>
       </rect>
      </property>
     </widget>
@@ -695,6 +742,74 @@
      </property>
      <property name="autoDefault">
       <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QGraphicsView" name="vehicleOrientationGV">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>60</y>
+       <width>200</width>
+       <height>200</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="longitudeBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>300</y>
+       <width>113</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lattitudeBox">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>330</y>
+       <width>113</width>
+       <height>21</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>300</y>
+       <width>62</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Longitude</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>84</x>
+       <y>330</y>
+       <width>62</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Lattitude</string>
      </property>
     </widget>
    </widget>

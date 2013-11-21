@@ -110,6 +110,7 @@ void VehicleConnection::disconnectFromVehicle() {
 
 int VehicleConnection::writeToVehicle(QString message) {
     if(!this->connected) return 0;
+    message.append('\n');
     if(write(*fd, message.toUtf8().data(), message.size()+1) < 0) {
         qDebug() << "Write error!";
     }
@@ -123,7 +124,7 @@ char *VehicleConnection::writeAndRead(QString message) {
     int n;
     char *buf;
     //qDebug() << "Writing " << message << " to " << fd;
-
+    message.append('\n');
     buf = (char*)malloc(BUFSIZE*sizeof(char));
 
     if(write(*fd, message.toUtf8().data(), message.size()+1) < 0) {

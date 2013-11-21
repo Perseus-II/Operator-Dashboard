@@ -16,6 +16,7 @@ public slots:
     void setVehicleMode(int mode);
     void setPIDValues(float,float,float);
     void updateCurrentOrientation();
+    void updateDesiredDepth(float);
 
 signals:
     void vehicleModeChanged(int);

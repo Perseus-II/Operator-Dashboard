@@ -6,7 +6,7 @@ OrientationGraphic::OrientationGraphic()
 
 QRectF OrientationGraphic::boundingRect() const
 {
-    return QRectF(0,0,100,100);
+    return QRectF(0,0,200,200);
 
 }
 
@@ -21,7 +21,7 @@ void OrientationGraphic::change_roll(float r) {
 }
 
 void OrientationGraphic::change_yaw(float y) {
-    yaw = y;
+    yaw = -1*(y - 77);
     update();
 }
 
@@ -35,12 +35,17 @@ void OrientationGraphic::updateState(float pitch, float roll, float yaw) {
 void OrientationGraphic::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QRectF rec = boundingRect();
+
     QBrush brush(Qt::blue);
 
-    setTransformOriginPoint(rec.center());
     setRotation(yaw);
-    painter->fillRect(rec, brush);
-    painter->drawRect(rec);
+    setTransformOriginPoint(100,100);
+    painter->setBrush(brush);
+    //painter->fillRect(rec, brush);
+    //painter->drawLine(100,100,100,200);
+    painter->drawLine(100,100,100,30);
+
+    //painter->drawRect(rec);
 
 }
 

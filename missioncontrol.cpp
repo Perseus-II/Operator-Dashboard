@@ -11,9 +11,10 @@ MissionControl::~MissionControl() {
 
 void MissionControl::setVehicleMode(int mode) {
     /* write to missioncontrolfd */
+    this->connection->writeToVehicle("/set_thrust 0,0,0,0");
+
     QString message;
     this->mode = mode;
-    this->connection->writeToVehicle("/set_thrust 0,0,0,0");
 
     qDebug() << "Changing vehicle mode to " << mode;
     message.sprintf("/set_mode %d", mode);
@@ -33,4 +34,10 @@ void MissionControl::setPIDValues(float kp, float ki, float kd) {
 
 void MissionControl::updateCurrentOrientation() {
     this->connection->writeToVehicle("/set_current_orientation");
+}
+
+void MissionControl::updateDesiredDepth(float depth) {
+    QString message;
+    message.sprintf("/set_depth %f", depth);
+    this->connection->writeToVehicle(message);
 }
